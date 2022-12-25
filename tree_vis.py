@@ -83,6 +83,37 @@ def dfs(root):
             stack.append(current.left)
         time.sleep(1)
 
+def postorder(root):
+    if root:
+        post_order(root.left)
+        post_order(root.right)
+
+        root.color = RED
+        root.draw_node()
+        pygame.display.update()
+        time.sleep(1)
+
+def inorder(root):
+    if root:
+        inorder(root.left)
+
+        root.color = RED
+        root.draw_node()
+        pygame.display.update()
+        time.sleep(1)
+
+        inorder(root.right)
+
+def preorder(root):
+    if root:
+        root.color = RED
+        root.draw_node()
+        pygame.display.update()
+        time.sleep(1)
+        
+        preorder(root.left)
+        preorder(root.right)
+
 def draw_window(root):
     WIN.fill(BLACK)
 
@@ -101,7 +132,10 @@ def draw_window(root):
     pygame.display.update()
 
     # bfs(root)
-    dfs(root)
+    # dfs(root)
+    # postorder(root)
+    # inorder(root)
+    preorder(root)
 
 def main():
     clock = pygame.time.Clock()
