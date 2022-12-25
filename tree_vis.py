@@ -46,7 +46,7 @@ def connect_nodes(node1, node2):
     line_start = (node1.x, node1.y+node1.radius)
     line_end = (node2.x, node2.y-node2.radius)
     line_color = WHITE
-    pygame.draw.line(WIN, line_color, line_start, line_end, 2)
+    pygame.draw.line(WIN, line_color, line_start, line_end, 1)
 
 def draw_window(root):
     WIN.fill(BLACK)
