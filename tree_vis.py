@@ -68,6 +68,21 @@ def bfs(root):
             queue.append(current.right)
         time.sleep(1)
 
+def dfs(root):
+    stack = [root]
+
+    while stack:
+        current = stack.pop()
+        current.color = RED
+        current.draw_node()
+        pygame.display.update()
+
+        if current.right:
+            stack.append(current.right)
+        if current.left:
+            stack.append(current.left)
+        time.sleep(1)
+
 def draw_window(root):
     WIN.fill(BLACK)
 
@@ -85,7 +100,8 @@ def draw_window(root):
 
     pygame.display.update()
 
-    bfs(root)
+    # bfs(root)
+    dfs(root)
 
 def main():
     clock = pygame.time.Clock()
