@@ -1,4 +1,5 @@
 import pygame
+import time
 
 WIDTH, HEIGHT = 900, 600
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -12,16 +13,17 @@ font = pygame.font.Font('./assets/OpenSans.ttf', 36)
 # colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
+RED = (255, 0, 0)
 
 class TreeNode:
-    def __init__(self, val, x, y):
+    def __init__(self, val, x, y, color=WHITE):
         self.radius = 30
         self.val = val
         self.x = x
         self.y = y
         self.left = None
         self.right = None
-        self.color = WHITE
+        self.color = color
 
     def draw_node(self):
         pygame.draw.circle(WIN, self.color, (self.x, self.y), self.radius, 1)
@@ -34,11 +36,14 @@ class TreeNode:
 
 def build_tree():
     root = TreeNode("5", WIDTH//2, 50)
-    root.left = TreeNode("8", WIDTH//2-75, 125)
-    root.right = TreeNode("3", WIDTH//2+75, 125)
+    root.left = TreeNode("8", WIDTH//2-75, 155)
+    root.right = TreeNode("3", WIDTH//2+75, 155)
 
-    root.left.left = TreeNode("9", WIDTH//2-150, 200)
-    root.left.right = TreeNode("12", WIDTH//2-100, 200)
+    root.left.left = TreeNode("9", WIDTH//2-150, 260)
+    root.left.right = TreeNode("12", WIDTH//2-75, 260)
+
+    root.right.left = TreeNode("21", WIDTH//2+150, 260)
+    root.right.right = TreeNode("19", WIDTH//2+75, 260)
 
     return root
 
@@ -47,6 +52,21 @@ def connect_nodes(node1, node2):
     line_end = (node2.x, node2.y-node2.radius)
     line_color = WHITE
     pygame.draw.line(WIN, line_color, line_start, line_end, 1)
+
+def bfs(root):
+    queue = [root]
+
+    while queue:
+        current = queue.pop(0)
+        current.color = RED
+        current.draw_node()
+        pygame.display.update()
+
+        if current.left:
+            queue.append(current.left)
+        if current.right:
+            queue.append(current.right)
+        time.sleep(1)
 
 def draw_window(root):
     WIN.fill(BLACK)
@@ -64,6 +84,8 @@ def draw_window(root):
             queue.append(current.right)
 
     pygame.display.update()
+
+    bfs(root)
 
 def main():
     clock = pygame.time.Clock()
