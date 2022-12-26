@@ -156,17 +156,17 @@ def draw_tree(root, algo):
 
     pygame.display.update()
 
-    # replace with switch statement
-    if algo == 1:
-        dfs(root)
-    elif algo == 2:
-        bfs(root)
-    elif algo == 3:
-        preorder(root)
-    elif algo == 4:
-        postorder(root)
-    elif algo == 5:
-        inorder(root)
+    # draw the algorithm
+    algo_map = {
+        1: dfs,
+        2: bfs,
+        3: preorder,
+        4: postorder,
+        5: inorder,
+    }
+    algo_func = algo_map.get(algo)
+    if algo_func:
+        algo_func(root)
 
 def draw_menu(algo):
     WIN.fill(BLACK)
@@ -215,16 +215,15 @@ def main():
                 # replace with swtich statement
                 if event.key == pygame.K_RETURN:
                     start = not start
-                if event.key == pygame.K_1:
-                    algo = 1
-                if event.key == pygame.K_2:
-                    algo = 2
-                if event.key == pygame.K_3:
-                    algo = 3
-                if event.key == pygame.K_4:
-                    algo = 4
-                if event.key == pygame.K_5:
-                    algo = 5
+
+                key_map = {
+                    pygame.K_1: 1,
+                    pygame.K_2: 2,
+                    pygame.K_3: 3,
+                    pygame.K_4: 4,
+                    pygame.K_5: 5,
+                }
+                algo = key_map.get(event.key, algo)
 
         root = build_tree()
 
